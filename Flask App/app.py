@@ -10,6 +10,9 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static'
 # Configuring pretty printing for JSON response
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+# Overriding the sorting of keys for jsonify
+app.config['JSON_SORT_KEYS'] = False
+
 
 # List to contain all relevant lines from input file 
 file_lines = []
