@@ -1,0 +1,21 @@
+{% block body %}
+<title>Log File Input</title>   
+
+<br></br>
+<br></br>
+<br></br>
+
+<center>
+    <h1 class="display-3">Upload your input log file</h1>
+    <div class="col-md-6">
+        <div class="form-group">
+            <form method=post enctype=multipart/form-data>
+                <p><input type=file name=file>
+                    <input type=submit class="btn btn-primary" value=Upload>
+            </form>
+        </div>
+    </div>
+</center>
+
+
+{% endblock %}
