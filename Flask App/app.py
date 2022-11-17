@@ -1,3 +1,4 @@
+# Import Dependencies
 import os 
 import json 
 import re 
@@ -5,7 +6,9 @@ import re
 from flask import Flask, request, render_template, jsonify 
 
 app = Flask(__name__)
+# Configuring the folder to upload input file
 app.config['UPLOAD_FOLDER'] = 'static'
+# Configuring pretty printing for JSON response
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 # List to contain all relevant lines from input file 
@@ -14,7 +17,8 @@ file_lines = []
 result = []
 
 @app.route('/fileinput', methods=['GET', 'POST'])
-def upload_file():
+def process_log_input():
+    # Variable to store the name of the file
     filename = ""
 
     if request.method == 'POST':
@@ -30,10 +34,10 @@ def upload_file():
             # Create a path to the Uploads folder 
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-            # Save the file to Uploads folder 
+            # Save the file to the Uploads folder 
             file.save(filepath)
             
-            # Load the saved file and read its contents
+            # Open the saved file and read its contents
             with open(filepath) as lf_handle:
                 for line in lf_handle:                
                     # Strip each line of any leading and trailing whitespace 
@@ -48,6 +52,7 @@ def upload_file():
                 # Regex pattern to match function name following specific rules
                 pattern = r'^[A-Za-z_][A-Za-z0-9_]*$'
 
+                # Loop through each line of the file
                 for line in file_lines:
                     # Create an empty dictionary for each entry
                     dictitem = {}
@@ -73,6 +78,10 @@ def upload_file():
             data = {}
             data["result"] = result
 
+            # Print JSON output to the console
+            print(json.dumps(data, indent=4, sort_keys=False))
+
+            # Return the JSON response of final result
             return jsonify(data)
 
     return render_template('fileupload.html')
