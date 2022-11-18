@@ -1,19 +1,11 @@
 # Pull up the python image 
-FROM python:alpine3.7
+FROM python:3.7.6
 
-# Copy the flask app into the container
-COPY . /app
+# Add everything in current directory to the image 
+ADD . /logalysis-docker
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /logalysis-docker
 
 # Install all dependencies and packages in requirements.txt
 RUN pip install -r requirements.txt
-
-# Expose the 5001 port
-EXPOSE 5001
-
-# Configure the container to run
-ENTRYPOINT ["python"]
-
-CMD ["app.py"]
